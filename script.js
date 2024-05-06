@@ -44,6 +44,7 @@ let songs=[
     },
 ];
 
+//listing the songs in the side-menu
 function AppendSongsList(){
     for(const [index,song] of songs.entries()){
         let songId = index+1;
@@ -62,6 +63,7 @@ function AppendSongsList(){
     }
 }
 
+//get Audio current time
 function AudioInfo(e){
     let audioDuration = e.srcElement.duration*1;
     let audioCurrent=e.target.currentTime*1;
@@ -78,42 +80,47 @@ function AudioInfo(e){
         }
         currentTime.textContent = `${audioCurrentMinute}:${audioCurrentSeconds}`;
     }
-    if(audioDuration){
-        let audioDurationMinute = Math.floor(audioDuration/60);
-        let audioDurationSeconds = Math.floor(audioDuration%60);
-        if(audioDurationMinute<10){
-            audioDurationMinute = `0${audioDurationMinute}`
-        }
-        if(audioDurationSeconds<10){
-            audioDurationSeconds = `0${audioDurationSeconds}`
-        }
-        duration.textContent = `${audioDurationMinute}:${audioDurationSeconds}`
-    }
 }
+
+//update progress Bar on click
 function UpdateProgress(e){
     let progressPercentage = (e.offsetX*1 / e.srcElement.offsetWidth*1);
     const {duration} = audio;
     audio.currentTime = progressPercentage * duration;
 }
+
+//by default get the currentSong and display it's informations
 function CurrentSong(index){
     audio.src=songs[index].audiosrc;
     title.textContent = songs[index].title;
     artist.textContent = songs[index].artist;
     playedImg.style.backgroundImage=`url('images/${songs[index].poster}')`;
+    audio.addEventListener('loadedmetadata', function() {
+        let audioDuration = audio.duration;
+        if(audioDuration){
+            let audioDurationMinute = Math.floor(audioDuration/60);
+            let audioDurationSeconds = Math.floor(audioDuration%60);
+            if(audioDurationMinute<10){
+                audioDurationMinute = `0${audioDurationMinute}`
+            }
+            if(audioDurationSeconds<10){
+                audioDurationSeconds = `0${audioDurationSeconds}`
+            }
+            duration.textContent = `${audioDurationMinute}:${audioDurationSeconds}`
+        }
+    })
 }
 
 function PlaySong(index){
     audio.play();
     isPlay=true;
     playpause.querySelector('.fa-solid').classList.replace('fa-play','fa-pause');
-    // AudioInfo();
 }
 function PauseSong(){
     audio.pause();
     isPlay=false;
     playpause.querySelector('.fa-solid').classList.replace('fa-pause','fa-play');
 }
-
 function PlayPause(){
     if(isPlay){        
         PauseSong(songIndex)
@@ -121,17 +128,18 @@ function PlayPause(){
         PlaySong(songIndex);
     }
 }
-
 function Next(){
-    if(songIndex < songs.length - 1){
-        songIndex++;
+    songIndex++;
+    if(songIndex > songs.length - 1){
+        songIndex=0;
         CurrentSong(songIndex);
         PlaySong(songIndex);
     }
 }
 function Previous(){
-    if(songIndex > 0){
-        songIndex--;
+    songIndex--;
+    if(songIndex < 0){
+        songIndex=songs.length-1;
         CurrentSong(songIndex);
         PlaySong(songIndex);
     }
