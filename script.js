@@ -62,20 +62,6 @@ function AppendSongsList(){
     }
 }
 
-function CurrentSong(index){
-    audio.src=songs[index].audiosrc;
-    title.textContent = songs[index].title;
-    artist.textContent = songs[index].artist;
-    playedImg.style.backgroundImage=`url('images/${songs[index].poster}')`;
-}
-
-function PlaySong(index){
-    audio.play();
-    isPlay=true;
-    playpause.querySelector('.fa-solid').classList.replace('fa-play','fa-pause');
-    AudioInfo();
-}
-
 function AudioInfo(e){
     let audioDuration = e.srcElement.duration*1;
     let audioCurrent=e.target.currentTime*1;
@@ -104,13 +90,24 @@ function AudioInfo(e){
         duration.textContent = `${audioDurationMinute}:${audioDurationSeconds}`
     }
 }
-
 function UpdateProgress(e){
     let progressPercentage = (e.offsetX*1 / e.srcElement.offsetWidth*1);
     const {duration} = audio;
     audio.currentTime = progressPercentage * duration;
 }
+function CurrentSong(index){
+    audio.src=songs[index].audiosrc;
+    title.textContent = songs[index].title;
+    artist.textContent = songs[index].artist;
+    playedImg.style.backgroundImage=`url('images/${songs[index].poster}')`;
+}
 
+function PlaySong(index){
+    audio.play();
+    isPlay=true;
+    playpause.querySelector('.fa-solid').classList.replace('fa-play','fa-pause');
+    // AudioInfo();
+}
 function PauseSong(){
     audio.pause();
     isPlay=false;

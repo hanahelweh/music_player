@@ -265,11 +265,11 @@ i{
     display: inline-block;
     border-radius: 50%;
     font-size: 20px;
-    position: absolute;
+    position: fixed;
     bottom: 10px;
     right: 10px;
     cursor: pointer;
-    z-index: 300;
+    z-index: 200;
 }
 @media all and (max-width:768px){
     .flex{
