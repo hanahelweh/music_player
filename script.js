@@ -110,16 +110,22 @@ function CurrentSong(index){
         }
     })
 }
-
 function PlaySong(index){
-    audio.play();
-    isPlay=true;
-    playpause.querySelector('.fa-solid').classList.replace('fa-play','fa-pause');
+    audio.play().then((r)=>{
+        isPlay=true;
+        playpause.querySelector('.fa-solid').classList.replace('fa-play','fa-solid fa-spinner');
+    }).catch((e)=>cl(e)).finally(()=>{
+        playpause.querySelector('.fa-solid').classList.replace('fa-play','fa-pause');
+    })
 }
 function PauseSong(){
-    audio.pause();
-    isPlay=false;
-    playpause.querySelector('.fa-solid').classList.replace('fa-pause','fa-play');
+    audio.pause().then((r)=>{
+        isPlay=false;
+        playpause.querySelector('.fa-solid').classList.replace('fa-pause','fa-solid fa-spinner');
+
+    }).catch((e)=>cl(e)).finally(()=>{
+        playpause.querySelector('.fa-solid').classList.replace('fa-pause','fa-play');
+    });
 }
 function PlayPause(){
     if(isPlay){        
