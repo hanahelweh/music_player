@@ -111,21 +111,16 @@ function CurrentSong(index){
     })
 }
 function PlaySong(index){
-    audio.play().then((r)=>{
+    playpause.querySelector('.fa-solid').classList.replace('fa-play','fa-spinner');
+    audio.play().then(()=>{
         isPlay=true;
-        playpause.querySelector('.fa-solid').classList.replace('fa-play','fa-solid fa-spinner');
-    }).catch((e)=>cl(e)).finally(()=>{
-        playpause.querySelector('.fa-solid').classList.replace('fa-play','fa-pause');
-    })
+        playpause.querySelector('.fa-solid').classList.replace('fa-spinner','fa-pause');
+    }).catch((e)=>cl(e))
 }
 function PauseSong(){
-    audio.pause().then((r)=>{
-        isPlay=false;
-        playpause.querySelector('.fa-solid').classList.replace('fa-pause','fa-solid fa-spinner');
-
-    }).catch((e)=>cl(e)).finally(()=>{
-        playpause.querySelector('.fa-solid').classList.replace('fa-pause','fa-play');
-    });
+    audio.pause();
+    isPlay=false;
+    playpause.querySelector('.fa-solid').classList.replace('fa-spinner','fa-play');
 }
 function PlayPause(){
     if(isPlay){        
