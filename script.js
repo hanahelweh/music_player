@@ -114,7 +114,7 @@ function PlaySong(index){
     playpause.querySelector('.fa-solid').classList.replace('fa-play','fa-spinner');
     audio.play().then(()=>{
         isPlay=true;
-        playpause.querySelector('.fa-solid').classList.replace('fa-spinner','fa-pause');
+        playpause.querySelector('.fa-solid').classList.replace('fa-pause','fa-pause');
     }).catch((e)=>console.log(e))
 }
 function PauseSong(){
