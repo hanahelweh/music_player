@@ -132,17 +132,17 @@ function Next(){
     songIndex++;
     if(songIndex > songs.length - 1){
         songIndex=0;
-        CurrentSong(songIndex);
-        PlaySong(songIndex);
     }
+    CurrentSong(songIndex);
+    PlaySong(songIndex);
 }
 function Previous(){
     songIndex--;
     if(songIndex < 0){
         songIndex=songs.length-1;
-        CurrentSong(songIndex);
-        PlaySong(songIndex);
     }
+    CurrentSong(songIndex);
+    PlaySong(songIndex);
 }
 function Mute(){
     if(audio.muted){
